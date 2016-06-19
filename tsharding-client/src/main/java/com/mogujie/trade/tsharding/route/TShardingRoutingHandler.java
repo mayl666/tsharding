@@ -1,4 +1,4 @@
-ackage com.mogujie.trade.tsharding.route;
+package com.mogujie.trade.tsharding.route;
 
 import com.mogujie.tesla.db.DataSourceRoutingHandler;
 import com.mogujie.trade.tsharding.annotation.parameter.*;
