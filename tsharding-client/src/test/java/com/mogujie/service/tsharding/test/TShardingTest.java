@@ -48,7 +48,7 @@ public class TShardingTest extends BaseTest {
         List<Long> orderIds = new ArrayList<>();
         orderIds.add(50000280834672L);
         ShopOrder shopOrder = new ShopOrder();
-        shopOrder.setShipTime(12345678L);
+        shopOrder.setShipTime(123456789L);
         int rows = shopOrderMapper.batchUpdateShopOrderByShopOrderIds(orderIds, shopOrder);
         Assert.isTrue(rows == 1);
     }

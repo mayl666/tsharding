@@ -25,4 +25,10 @@ public @interface DataSourceRouting {
      */
     Class<? extends DataSourceRoutingHandler> handler() default EmptyDataSourceRoutingHandler.class;
 
+    /**
+     * 配合handler使用,返回mapper的运行信息
+     *
+     * @return
+     */
+    Class<? extends MapperRoutingHandler> mapper() default MapperRoutingHandler.EmptyMapperRoutingHandler.class;
 }
