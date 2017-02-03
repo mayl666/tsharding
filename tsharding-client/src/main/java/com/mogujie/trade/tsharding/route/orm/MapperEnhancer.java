@@ -33,7 +33,7 @@ public abstract class MapperEnhancer {
     private static ClassPool pool = ClassPool.getDefault();
 
     private Map<String, Method> methodMap = new HashMap<>();
-    private Map<String, MapperRoutingHandler> methodMapper = new HashMap<>();
+    private Map<String, MapperRoutingHandler> mapperHandlerMap = new HashMap<>();
     private Class<?> mapperClass;
 
     public MapperEnhancer(Class<?> mapperClass) {
@@ -104,7 +104,7 @@ public abstract class MapperEnhancer {
      */
     public void addMethodMap(String methodName, MapperRoutingHandler mapperRoutingHandler, Method method) {
         methodMap.put(methodName, method);
-        methodMapper.put(methodName, mapperRoutingHandler);
+        mapperHandlerMap.put(methodName, mapperRoutingHandler);
     }
 
     private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
@@ -156,7 +156,7 @@ public abstract class MapperEnhancer {
     public void setSqlSource(MappedStatement ms, Configuration configuration) throws Exception {
         String key = getMethodName(ms);
         Method method = methodMap.get(key);
-        MapperRoutingHandler mapperRoutingHandler = methodMapper.get(key);
+        MapperRoutingHandler mapperRoutingHandler = mapperHandlerMap.get(key);
         try {
             if (method.getReturnType() == Void.TYPE) {
                 method.invoke(this, ms);

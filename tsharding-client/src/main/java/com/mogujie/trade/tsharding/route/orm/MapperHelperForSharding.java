@@ -148,12 +148,12 @@ public class MapperHelperForSharding {
         Method[] methods = mapperClass.getDeclaredMethods();
         Class<?> templateClass = null;
         Class<?> tempClass = null;
-        Map<String, MapperRoutingHandler> methodSet = new HashMap<>();
+        Map<String, MapperRoutingHandler> mapperHandlerMap = new HashMap<>();
         for (Method method : methods) {
             if (method.isAnnotationPresent(ShardingExtensionMethod.class)) {
                 ShardingExtensionMethod annotation = method.getAnnotation(ShardingExtensionMethod.class);
                 tempClass = annotation.type();
-                methodSet.put(method.getName(), mapperHasEnhance.get(mapperClass.getName()));
+                mapperHandlerMap.put(method.getName(), mapperHasEnhance.get(mapperClass.getName()));
             }
             if (templateClass == null) {
                 templateClass = tempClass;
@@ -171,7 +171,7 @@ public class MapperHelperForSharding {
             throw new RuntimeException("实例化MapperTemplate对象失败:" + e.getMessage(), e);
         }
         // 注册方法
-        for (Map.Entry<String, MapperRoutingHandler> item : methodSet.entrySet()) {
+        for (Map.Entry<String, MapperRoutingHandler> item : mapperHandlerMap.entrySet()) {
             try {
                 mapperEnhancer.addMethodMap(item.getKey(), item.getValue(), templateClass.getMethod("enhancedShardingSQL", MappedStatement.class, Configuration.class, MapperRoutingHandler.class, Long.class));
             } catch (NoSuchMethodException e) {

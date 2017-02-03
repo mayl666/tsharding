@@ -26,7 +26,7 @@ public interface MapperRoutingHandler {
      * @param shardingPara
      * @return
      */
-    String SchemaName(Long shardingPara);
+    String schemaName(Long shardingPara);
 
     /**
      * 表名前缀
@@ -62,7 +62,7 @@ public interface MapperRoutingHandler {
         }
 
         @Override
-        public String SchemaName(Long shardingPara) {
+        public String schemaName(Long shardingPara) {
             return null;
         }
 

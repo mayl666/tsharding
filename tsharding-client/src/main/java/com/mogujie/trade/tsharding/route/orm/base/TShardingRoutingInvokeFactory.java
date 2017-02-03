@@ -129,7 +129,7 @@ public class TShardingRoutingInvokeFactory implements InvokerFactory<Class<?>> {
                         ShardingMetadata shardingMetadata = new ShardingMetadata();
                         shardingMetadata.setShardingKey(shardingKey);
                         shardingMetadata.setTableSuffix(mapperRoutingHandler.cacuTableIndex(shardingKey));
-                        shardingMetadata.setSchemaName(mapperRoutingHandler.SchemaName(shardingKey));
+                        shardingMetadata.setSchemaName(mapperRoutingHandler.schemaName(shardingKey));
                         return shardingMetadata;
                     }
                 }

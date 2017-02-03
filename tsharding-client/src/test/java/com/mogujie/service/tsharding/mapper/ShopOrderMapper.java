@@ -36,7 +36,7 @@ public interface ShopOrderMapper {
         }
 
         @Override
-        public String SchemaName(Long shardingPara) {
+        public String schemaName(Long shardingPara) {
             return "trade" + getNumberWithZeroSuffix(((shardingPara % 10000) % 512) / 64);
         }
 
