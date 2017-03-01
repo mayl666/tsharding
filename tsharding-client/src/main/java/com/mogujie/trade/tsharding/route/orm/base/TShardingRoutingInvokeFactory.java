@@ -6,7 +6,6 @@ import com.mogujie.trade.db.MapperRoutingHandler;
 import com.mogujie.trade.tsharding.annotation.parameter.ShardingBuyerPara;
 import com.mogujie.trade.tsharding.annotation.parameter.ShardingOrderPara;
 import com.mogujie.trade.tsharding.annotation.parameter.ShardingSellerPara;
-import com.mogujie.trade.tsharding.route.TShardingRoutingHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.slf4j.Logger;
@@ -50,7 +49,8 @@ public class TShardingRoutingInvokeFactory implements InvokerFactory<Class<?>> {
                     }
                 }
             };
-        } else if (dataSourceRouting != null && dataSourceRouting.handler() == TShardingRoutingHandler.class) { //使用Sharding数据源
+        } else if (dataSourceRouting != null && MapperRoutingHandler.class.isAssignableFrom(dataSourceRouting.handler())) { //使用Sharding数据源
+
             logger.debug("TShardingRoutingInvokeFactory routing: dynamic handler: " + dataSourceRouting.handler().getName());
             return new Invoker() {
                 @Override
@@ -91,7 +91,7 @@ public class TShardingRoutingInvokeFactory implements InvokerFactory<Class<?>> {
 
         MapperRoutingHandler mapperRoutingHandler;
         try {
-            mapperRoutingHandler = dataSourceRouting.mapper().newInstance();
+            mapperRoutingHandler = dataSourceRouting.handler().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -128,8 +128,8 @@ public class TShardingRoutingInvokeFactory implements InvokerFactory<Class<?>> {
 
                         ShardingMetadata shardingMetadata = new ShardingMetadata();
                         shardingMetadata.setShardingKey(shardingKey);
-                        shardingMetadata.setTableSuffix(mapperRoutingHandler.cacuTableIndex(shardingKey));
-                        shardingMetadata.setSchemaName(mapperRoutingHandler.schemaName(shardingKey));
+                        shardingMetadata.setTableSuffix(mapperRoutingHandler.calculateTableIndex(shardingKey));
+                        shardingMetadata.setSchemaName(mapperRoutingHandler.calculateSchemaName(shardingKey));
                         return shardingMetadata;
                     }
                 }

@@ -22,10 +22,8 @@ public class TShardingTest extends BaseTest {
     @Autowired
     private ShopOrderDao shopOrderDao;
 
-
     @Autowired
     private ShopOrderMapper shopOrderMapper;
-
 
     @Test
     public void testGetShopOrderByShopOrderIdsDao() {

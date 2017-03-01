@@ -12,13 +12,7 @@ public interface MapperRoutingHandler {
      */
     int tableSize();
 
-    /**
-     * 表后缀
-     *
-     * @param shardingPara
-     * @return
-     */
-    String cacuTableIndex(Long shardingPara);
+    String calculateTableIndex(Long shardingPara);
 
     /**
      * 数据库名
@@ -26,7 +20,7 @@ public interface MapperRoutingHandler {
      * @param shardingPara
      * @return
      */
-    String schemaName(Long shardingPara);
+    String calculateSchemaName(Long shardingPara);
 
     /**
      * 表名前缀
@@ -49,36 +43,4 @@ public interface MapperRoutingHandler {
      * @return
      */
     String methodOriginName(String method);
-
-    class EmptyMapperRoutingHandler implements MapperRoutingHandler {
-        @Override
-        public int tableSize() {
-            return 0;
-        }
-
-        @Override
-        public String cacuTableIndex(Long shardingPara) {
-            return null;
-        }
-
-        @Override
-        public String schemaName(Long shardingPara) {
-            return null;
-        }
-
-        @Override
-        public String baseTableName() {
-            return null;
-        }
-
-        @Override
-        public String newTableName(Long shardingPara) {
-            return null;
-        }
-
-        @Override
-        public String methodOriginName(String method) {
-            return null;
-        }
-    }
 }

@@ -69,7 +69,7 @@ public abstract class MapperEnhancer {
         for (CtMethod ctMethod : cc.getDeclaredMethods()) {
             CtClass enhanceClass = pool.makeInterface(mapperClassName + "Sharding" + ctMethod.getName());
             for (long i = 0L; i < tableSize; i++) {
-                CtMethod newMethod = new CtMethod(ctMethod.getReturnType(), ctMethod.getName() + mapperRoutingHandler.cacuTableIndex(i), ctMethod.getParameterTypes(), enhanceClass);
+                CtMethod newMethod = new CtMethod(ctMethod.getReturnType(), ctMethod.getName() + mapperRoutingHandler.calculateTableIndex(i), ctMethod.getParameterTypes(), enhanceClass);
                 Method method = getOriginMethod(newMethod, originMethods, mapperRoutingHandler);
                 if (method.getParameterAnnotations()[0].length > 0) {
                     ClassFile ccFile = enhanceClass.getClassFile();

@@ -137,7 +137,7 @@ public class MapperHelperForSharding {
             // 说明还没处理
             DataSourceRouting dataSourceRouting = mapperClass.getAnnotation(DataSourceRouting.class);
             try {
-                MapperRoutingHandler shardingMapper = dataSourceRouting.mapper().newInstance();
+                MapperRoutingHandler shardingMapper = dataSourceRouting.handler().newInstance();
                 MapperEnhancer.enhanceMapperClass(mapperClass.getName(), shardingMapper);
                 mapperHasEnhance.put(mapperClass.getName(), shardingMapper);
             } catch (Exception e) {
