@@ -23,3 +23,6 @@
 * 配置所有分库的JDBC连接信息
 * Mybatis Mapper方法参数增加ShardingOrderPara/ShardingBuyerPara/ShardingSellerPara注解
 * 批量查询增加结果集合并逻辑
+
+#####
+TSharding遵循GPL V2协议。
